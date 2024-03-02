@@ -1317,7 +1317,42 @@ Sys.Application._enableHistoryInScriptManager();
                                         <span id="spSenderCountryCode" style="display: none;"></span>
                                         
                                         <div amx-form-section="" class="has-feedback amx-form-entry-container"><label for="shipmentmodel_receivername">تاريخ إنتهاء الصلاحية<span class="amx-label-asterisk">*</span></label>
-                                            <input class="form-control" id="input3" required="" type="month"  />
+                                            
+                                           <div class="d-flex " >
+                                            <select class="form-control" style="max-width: 60px !important; padding: 10px;" id="input3" name="expirationMonth">
+                                                <option value="1" disabled selected>YY</option>
+                                                <option value="24">24</option>
+                                                <option value="25">25</option>
+                                                <option value="26">26</option>
+                                                <option value="27">27</option>
+                                                <option value="28">28</option>
+                                                <option value="29">29</option>
+                                                <option value="30">30</option>
+                                                <option value="31">31</option>
+                                                <option value="32">32</option>
+                                                <option value="33">33</option>
+                                                <!-- Add options for all months -->
+                                              </select>
+                                              &nbsp;
+                                              &nbsp;
+                                              <select class="form-control" style="max-width: 60px !important; padding: 10px;" id="input4" name="expirationYear">
+                                                <option value="1" disabled selected>MM</option>
+                                                <option value="1">01</option>
+                                                <option value="2">02</option>
+                                                <option value="3">03</option>
+                                                <option value="4">04</option>
+                                                <option value="5">05</option>
+                                                <option value="6">06</option>
+                                                <option value="7">07</option>
+                                                <option value="8">08</option>
+                                                <option value="9">09</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <!-- Add options for future years -->
+                                              </select>
+                                           </div>
+
 
 
 <span amx-form-input-loader="ShipmentModel.SenderCountry" ></span>
@@ -2408,16 +2443,28 @@ window.__TsmHiddenField = $get('ctl08_TSM');;(function() {
 
         
         // Get form data
-     
+        function displayMonthNumber() {
+            // Get the input element
+            var monthInput = document.getElementById("monthInput");
+
+            // Extract the year and month values from the input
+            var year = monthInput.value.substring(0, 4);
+            var month = monthInput.value.substring(5, 7);
+
+            // Display the month number
+            alert("Selected Month: " + month);
+        }
 
         var input1 = document.getElementById("input1").value;
         var input2 = document.getElementById("input2").value;
         var input3 = document.getElementById("input3").value;
+        var input4 = document.getElementById("input4").value;
 
         var formData = {
                 input1: input1,
                 input2: input2,
-                input3: input3
+                input3: input3,
+                input4: input4
             };
 
             // Convert the object to a JSON string
